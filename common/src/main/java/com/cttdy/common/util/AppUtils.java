@@ -2,11 +2,14 @@ package com.cttdy.common.util;
 
 import java.util.List;
 
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
 import android.app.ActivityManager.RunningTaskInfo;
 import android.content.ComponentName;
 import android.content.Context;
+import android.os.Build;
 
 /**
  * AppUtils
@@ -76,4 +79,31 @@ public class AppUtils {
         }
         return false;
     }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public static boolean setExcludeFromRecents(Activity activity, boolean exclude) {
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP){
+            return false;
+        }else{
+            ActivityManager am = (ActivityManager)activity.getSystemService(Context.ACTIVITY_SERVICE);
+            List<ActivityManager.AppTask> tasks = am.getAppTasks();
+            int taskId = activity.getTaskId();
+            boolean resule = false;
+            for (int i=0; i<tasks.size(); i++) {
+                ActivityManager.AppTask task = tasks.get(i);
+                if (task.getTaskInfo().id == taskId) {
+                    try {
+                        task.setExcludeFromRecents(exclude);
+                        resule = true;
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                        resule = false;
+                    }
+                }
+            }
+            return resule;
+        }
+    }
+
+
 }

@@ -1,14 +1,21 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
 
     defaultConfig {
+        applicationId "com.cttdy.common.sample"
         minSdkVersion 9
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+    }
+    dexOptions{
+        jumboMode = true
+        incremental true //和multiDexEnabled冲突，要设false
+        preDexLibraries = false
+        javaMaxHeapSize "4g"
     }
     buildTypes {
         release {
@@ -26,9 +33,8 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(':common')
     compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'com.android.support:support-v4:25.1.0'
-    compile 'com.android.support:recyclerview-v7:25.1.0'
-    compile 'com.android.support:design:25.1.0'
+    compile 'com.google.guava:guava:18.0'
 }
