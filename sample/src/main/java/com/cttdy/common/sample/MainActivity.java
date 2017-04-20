@@ -27,9 +27,9 @@ public class MainActivity extends AppCompatActivity {
         list.add("E");
         list.add("F");
         list.add("G");
-        ListViewBindingAdapter adapter = new ListViewBindingAdapter<String>(list, com.cttdy.common.sample.BR.title, R.layout.list_item);
+        ListViewBindingAdapter adapter = new ListViewBindingAdapter<>(list, com.cttdy.common.sample.BR.title, R.layout.list_item);
         ClickActionHandler handler = new ClickActionHandler(this);
-        adapter.setHandler(com.cttdy.common.sample.BR.handler,handler);
+        adapter.bindViewModel(com.cttdy.common.sample.BR.handler,handler);
         binding.listview.setAdapter(adapter);
 
 
