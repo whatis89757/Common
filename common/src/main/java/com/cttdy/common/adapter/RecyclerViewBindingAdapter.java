@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by yejingxian on 2017/2/8.
@@ -15,6 +17,7 @@ public class RecyclerViewBindingAdapter<T> extends RecyclerView.Adapter<Recycler
     private List<T> mList;
     private int variable;
     private int layout;
+    private HashMap<Integer, Object> mViewModel = new HashMap<>();
 
     private OnAdapterClickListener listener;
 
@@ -35,8 +38,13 @@ public class RecyclerViewBindingAdapter<T> extends RecyclerView.Adapter<Recycler
         final T obj = mList.get(position);
         final int p = position;
         final View view = holder.itemView;
+
         holder.getBinding().setVariable(variable, mList.get(position));
+        for(Map.Entry<Integer, Object> entry :mViewModel.entrySet()){
+            holder.getBinding().setVariable(entry.getKey(), entry.getValue());
+        }
         holder.getBinding().executePendingBindings();
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +79,11 @@ public class RecyclerViewBindingAdapter<T> extends RecyclerView.Adapter<Recycler
 
     private void setList(List<T> list) {
         mList = list;
+        notifyDataSetChanged();
+    }
+
+    public void bindViewModel(int variable,Object o){
+        mViewModel.put(variable, o);
         notifyDataSetChanged();
     }
 

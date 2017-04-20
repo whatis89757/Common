@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by yejingxian on 2017/2/8.
@@ -18,6 +20,7 @@ public class ListViewBindingAdapter<T> extends BaseAdapter {
     private List<T> mList;
     private int variable;
     private int layout;
+    private HashMap<Integer, Object> mViewModel = new HashMap<>();
 
 
     public ListViewBindingAdapter(List<T> list, int variable, int layout) {
@@ -63,14 +66,14 @@ public class ListViewBindingAdapter<T> extends BaseAdapter {
             binding = DataBindingUtil.getBinding(view);
         }
         binding.setVariable(variable, mList.get(i));
-        if(handler != null)
-        binding.setVariable(handler.first,handler.second);
+        for(Map.Entry<Integer, Object> entry :mViewModel.entrySet()){
+            binding.setVariable(entry.getKey(), entry.getValue());
+        }
         binding.executePendingBindings();
         return binding.getRoot();
     }
-    public void setHandler(int variable,Object o){
-        handler = new Pair<>(variable,o);
+    public void bindViewModel(int variable,Object o){
+        mViewModel.put(variable, o);
         notifyDataSetChanged();
     }
-    Pair<Integer,Object> handler;
 }
