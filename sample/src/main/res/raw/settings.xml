@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--SettingUtility.addSettings添加配置-->
+<app-settings>
+    <setting type="app_key">
+        <des>APP应用授权key</des>
+        <value>2362431378</value>
+    </setting>
+
+    <setting type="app_secret">
+        <des>APP应用授权secret</des>
+        <value>582ce3cdcdeb8a3b45087073d0dbcadf</value>
+    </setting>
+
+    <setting type="statusesFriendsTimeLine">
+        <des>获取当前登录用户及其所关注用户的最新微博消息</des>
+        <value>statuses/friends_timeline.json</value>
+        <extras>
+            <extra type="cache_enable">
+                <value>true</value>
+            </extra>
+            <extra type="cache_utility">
+                <value>org.aisen.weibo.sina.support.cache.TimelineCacheUtility</value>
+            </extra>
+        </extras>
+    </setting>
+
+    <setting type="friendshipsFriends">
+        <des>获取用户的关注列表</des>
+        <value>friendships/friends.json</value>
+        <extras>
+            <extra type="page_count">
+                <value>50</value>
+            </extra>
+            <extra type="cache_enable">
+                <value>true</value>
+            </extra>
+            <extra type="cache_utility">
+                <value>org.aisen.weibo.sina.support.db.FriendDB</value>
+            </extra>
+        </extras>
+    </setting>
+
+
+    <setting-array type="cache_utility" index="2">
+        <des>缓存模式设置</des>
+        <setting>
+            <des>DB数据缓存</des>
+            <value>org.aisen.android.support.cache.DBCacheUtility</value>
+        </setting>
+        <setting>
+            <des>文件数据缓存</des>
+            <value>com.sysweal.marketing.support.cache.FileCacheUtility_2</value>
+        </setting>
+    </setting-array>
+
+
+</app-settings>
