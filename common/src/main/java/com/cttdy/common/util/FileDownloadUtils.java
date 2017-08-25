@@ -60,7 +60,7 @@ public class FileDownloadUtils {
      * @return
      * @throws IOException
      */
-    public static String generateSaveFile(String url, @NonNull File parent, @Nullable String hint,
+    public static String generateSaveFile(@NonNull String url, @NonNull File parent, @Nullable String hint,
                                           @Nullable String contentDisposition, @Nullable String contentLocation,
                                           @Nullable String mimeType, boolean replaceOld) throws IOException {
         String name = chooseFilename(url, hint, contentDisposition, contentLocation, DEFAULT_DL_FILENAME);
